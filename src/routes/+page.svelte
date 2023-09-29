@@ -159,14 +159,14 @@
             <!-- <div class="text-xs text-slate-500">Sigmanauts Mining Group</div> -->
         </div>
         <div class="flex gap-6 grow justify-center">
-            <div>
+            <div class="optional-md">
                 <div class="text-slate-400 text-sm">Hashrate:</div>
                 <div>
                     {page?.poolStats?.NetworkHashrate}
                 </div>
             </div>
 
-            <div>
+            <div class="optional-md">
                 <div class="text-slate-400 text-sm">Difficulty:</div>
                 <div>
                     {page?.poolStats?.NetworkDifficulty}
@@ -187,7 +187,7 @@
         <div class="flex flex-col w-full p-10 custom-bg">
             <div class="uppercase mb-8 font-bold text-5xl">Sigmanauts Pool</div>
             <!-- all widgets start -->
-            <div class="w-full flex gap-4" style="height:min-content">
+            <div class="w-full flex gap-4 flex-wrap" style="height:min-content">
                 <!-- widget start -->
                 <div class="widget p-3 grow">
                     <div class="uppercase text-slate-400">
@@ -242,20 +242,20 @@
                 "Created": "2023-09-27T23:34:37.068514Z" 
             -->
                         <th>Found</th>
-                        <th>Reward</th>
-                        <th>Height</th>
-                        <th>Difficulty</th>
+                        <th class="optional-md">Reward</th>
+                        <th class="optional-md">Height</th>
+                        <th class="optional-md">Difficulty</th>
                         <th>Block&nbsp;Hash</th>
                         <th>Miner</th>
                         <th>Effort</th>
-                        <th>Status</th>
+                        <th class="optional-md">Status</th>
                     </tr>
                     {#each page?.latestBlocks as block}
                         <tr>
                             <td>{timeSince(Date.parse(block.Created))} ago</td>
-                            <td>{(+block.Reward).toFixed(2)}</td>
-                            <td>{block.BlockHeight}</td>
-                            <td>{(+block.NetworkDifficulty).toFixed(0)}</td>
+                            <td class="optional-md">{(+block.Reward).toFixed(2)}</td>
+                            <td class="optional-md">{block.BlockHeight}</td>
+                            <td class="optional-md">{(+block.NetworkDifficulty).toFixed(0)}</td>
                             <td class="text-green-300"
                                 ><a
                                     href={`https://explorer.ergoplatform.com/en/blocks/${block.Hash}`}
@@ -273,7 +273,7 @@
                                 </button>
                             </td>
                             <td>{(+block.Effort).toFixed(2) * 100}%</td>
-                            <td>{block.Status}</td>
+                            <td class="optional-md">{block.Status}</td>
                         </tr>
                     {/each}
                 </table>
@@ -284,6 +284,16 @@
 </div>
 
 <style>
+    @media screen and (max-width:768px){
+        .optional-md{
+            display:none;
+        }
+    }
+    @media screen and (max-width: 1023px){
+        .main-img {
+            display:none;
+        }
+    }
     .main-img {
         background-image: url("mines.png");
         width: 200px;

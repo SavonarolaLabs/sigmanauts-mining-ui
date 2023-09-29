@@ -5,6 +5,8 @@
     import { shortenAddress } from "$lib/utils";
     import { timeSince } from "$lib/time";
 
+    let address = "9eZPTmn8zp5GJ7KZwTo8cEuxNdezWaY3hBbLeWid7EAZedzb9tD";
+
     let page: Page = {
         minerStats: {
             Address: "9eZPTmn8zp5GJ7KZwTo8cEuxNdezWaY3hBbLeWid7EAZedzb9tD",
@@ -106,11 +108,11 @@
     };
     //onMount(fetchData);
     async function fetchData() {
+        loadFromAddress(address);
+    }
+    async function loadFromAddress(address: string) {
         let formData = new FormData();
-        formData.append(
-            "wallet",
-            "9eZPTmn8zp5GJ7KZwTo8cEuxNdezWaY3hBbLeWid7EAZedzb9tD"
-        );
+        formData.append("wallet", address);
         const res = await fetch(
             "https://my.ergoport.dev/cgi-bin/mining/mining_all.html",
             {
@@ -120,9 +122,13 @@
         );
         const data = await res.text();
 
-        page = getPage(data);
+        const newPage = getPage(data);
 
-        console.log(page);
+        if(newPage?.minerStats?.Address){
+            page = newPage;
+        }else{
+            console.log("not found")
+        }
     }
 </script>
 
@@ -214,7 +220,7 @@
             </div>
             <!-- all widgets end -->
             {#if page?.latestBlocks?.length > 0}
-                <table class="mining">
+                <table class="mining mt-10">
                     <tr class="text-slate-400">
                         <!-- 
                 "BlockHeight": "1100468",
@@ -247,7 +253,16 @@
                                     >{shortenAddress(block.Hash)}</a
                                 ></td
                             >
-                            <td>{shortenAddress(block.Miner)}</td>
+                            <td class="text-green-300">
+                                <button
+                                    on:click={() => {
+                                        address = block.Miner;
+                                        fetchData();
+                                    }}
+                                >
+                                    {shortenAddress(block.Miner)}
+                                </button>
+                            </td>
                             <td>{(+block.Effort).toFixed(2) * 100}%</td>
                             <td>{block.Status}</td>
                         </tr>

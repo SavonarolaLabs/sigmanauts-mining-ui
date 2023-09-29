@@ -184,7 +184,7 @@
     <!-- Header end -->
 
     <div class="flex grow">
-        <div class="h-full main-img bg-red-400" style='background-image: url("{base}mines.png");'/>
+        <div class="h-full main-img bg-red-400" style='background-image: url("{base}/mines.png");'/>
         <!-- Main start -->
         <div class="flex flex-col w-full p-10 custom-bg">
             <div class="uppercase mb-8 font-bold text-5xl">Sigmanauts Pool</div>

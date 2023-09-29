@@ -12,6 +12,7 @@ export type MinerStats = {
     TotalPaid?: string
     TodayPaid?: string
     LastPayment?: string
+    LastPaymentLink?: string
 }
 
 export type PoolWorker = {

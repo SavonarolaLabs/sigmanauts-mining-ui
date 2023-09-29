@@ -4,6 +4,8 @@
     import type { Page } from "$lib/pageparser";
     import { shortenAddress } from "$lib/utils";
     import { timeSince } from "$lib/time";
+    import { base } from '$app/paths';
+
 
     let address = "9eZPTmn8zp5GJ7KZwTo8cEuxNdezWaY3hBbLeWid7EAZedzb9tD";
 
@@ -148,7 +150,7 @@
         style="border-bottom: 1px solid rgba(255,255,255,0.2);"
     >
         <div class="flex flex-col items-center">
-            <a href="/">
+            <a href="{base}/">
                 <div
                     class="font-bold text-green-400 text-3xl"
                     style="margin-left:35px"

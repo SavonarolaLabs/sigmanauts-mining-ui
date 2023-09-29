@@ -22,4 +22,7 @@
 		"vite": "^4.4.2"
 	},
 	"type": "module",
+	"dependencies": {
+		"@sveltejs/adapter-static": "^2.0.3"
+	}
 }

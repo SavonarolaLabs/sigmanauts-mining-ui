@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getPage } from "./pageregex";
+    import { getPage } from "../lib/pageregex";
     import type { Page } from "$lib/pageparser";
     import { shortenAddress } from "$lib/utils";
     import { timeSince } from "$lib/time";
@@ -127,7 +127,16 @@
         if(newPage?.minerStats?.Address){
             page = newPage;
         }else{
-            console.log("not found")
+            const res = await fetch(
+                "https://my.ergoport.dev/cgi-bin/mining/mining_all.html",
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
+            const data = await res.text();
+            const newPage = getPage(data);
+            page = newPage;
         }
     }
 </script>
@@ -232,7 +241,7 @@
                 "Miner": "9hashqSPuP8Y9wfvkeW8Th4o4GUEDPDnJuZH1p9XupTCyXaJocM",
                 "Created": "2023-09-27T23:34:37.068514Z" 
             -->
-                        <th>Time Found</th>
+                        <th>Found</th>
                         <th>Reward</th>
                         <th>Height</th>
                         <th>Difficulty</th>
